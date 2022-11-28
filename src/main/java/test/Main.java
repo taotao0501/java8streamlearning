@@ -126,6 +126,22 @@ public class Main {
         Comparator<Dish> dishCaloriesComparator =
                 Comparator.comparingInt(Dish::getCalories);
         Optional<Dish> mostCalorieDish = menu.stream().collect(Collectors.maxBy(dishCaloriesComparator));
+        // 汇总 summingInt Long/Double
+        int totalCalories2 = menu.stream().collect(Collectors.summingInt(Dish::getCalories));
+
+        double avgCalories = menu.stream().collect(Collectors.averagingDouble(Dish::getCalories));
+        // 统计值，一次返回 最大，最小，平均，总和，数量
+        IntSummaryStatistics menuStatistics = menu.stream().collect(Collectors.summarizingInt(Dish::getCalories));
+        System.out.println(menuStatistics);
+
+        // 连接字符串
+        String shortMenu = menu.stream().map(Dish::getName).collect(Collectors.joining(", "));
+        System.out.println(shortMenu);
+        System.out.println("--------");
+        // -----------分组---------
+        Map<Dish.Type, List<Dish>> dishesByType = menu.stream().collect(Collectors.groupingBy(Dish::getType));
+        System.out.println(dishesByType);
+        // 个性化分组
 
 
 
